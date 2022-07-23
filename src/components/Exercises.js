@@ -1,10 +1,17 @@
 import React, {useEffect,useState}from 'react'
-import { Pagination } from '@mui/material';
+import  Pagination  from '@mui/material/Pagination'
 import { exerciseOptions,fetchData } from '../utils/fetchData'
 import { Box, Stack,Typography } from '@mui/material'
 import ExerciseCard from './ExerciseCard'
 const Exercises = ({exercises, setExercises,bodyPart}) => {
- 
+    const [currentPage, setCurrentPage] = useState(1)
+    const exercisesPerPage = 9;
+    
+  const paginate = (event, value) => {
+    setCurrentPage(value);
+
+    window.scrollTo({ top: 1800, behavior: 'smooth' });
+  };
   return (
     <Box id ="exercises" 
     sx={{
@@ -28,6 +35,12 @@ flexWrap="wrap" justifyContent="center">
   <Pagination
   color="Standard"
   shape="rounded"
+  defaultPage={1}
+  count={Math.ceil(exercises.length/exercisesPerPage)}
+  page={currentPage}
+  onChange={paginate}
+  size="large"
+
   />
  )}
 </Stack>
